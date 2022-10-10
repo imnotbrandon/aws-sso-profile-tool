@@ -169,6 +169,7 @@ do
     echo
     echo "Adding roles for account $acctnum ($acctname)..."
     rolesfile="$(mktemp ./sso.roles.XXXXXX)"
+	safename="$(echo -e $acctname |  tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')"
 
     # Set up trap to clean up both temp files
     trap '{ rm -f "$rolesfile" "$acctsfile"; echo; exit 255; }' SIGINT SIGTERM
@@ -207,7 +208,7 @@ do
 	    defoutput=$output
 	fi
 	
-	p="$rolename-$acctnum"
+	p="$safename-$rolename"
 	while true ; do
 	    if $interactive ;
 	    then
